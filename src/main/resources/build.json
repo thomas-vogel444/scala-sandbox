@@ -1,0 +1,480 @@
+{
+  "_class": "hudson.model.Hudson",
+  "jobs": [
+    {
+      "_class": "hudson.model.FreeStyleProject",
+      "name": "ak-PLATOPS-1884-testing",
+      "url": "https://lab03.build.tax.service.gov.uk/job/ak-PLATOPS-1884-testing/",
+      "buildable": true
+    },
+    {
+      "_class": "com.cloudbees.hudson.plugins.folder.Folder",
+      "name": "build-and-deploy",
+      "url": "https://lab03.build.tax.service.gov.uk/job/build-and-deploy/",
+      "jobs": [
+        {
+          "_class": "hudson.model.FreeStyleProject",
+          "name": "app-config-base-pr-builder",
+          "url": "https://lab03.build.tax.service.gov.uk/job/build-and-deploy/job/app-config-base-pr-builder/",
+          "buildable": true
+        },
+        {
+          "_class": "hudson.model.FreeStyleProject",
+          "name": "app-config-pr-validator",
+          "url": "https://lab03.build.tax.service.gov.uk/job/build-and-deploy/job/app-config-pr-validator/",
+          "buildable": true
+        },
+        {
+          "_class": "hudson.model.FreeStyleProject",
+          "name": "app-config-pr-validator-pr-builder",
+          "url": "https://lab03.build.tax.service.gov.uk/job/build-and-deploy/job/app-config-pr-validator-pr-builder/",
+          "buildable": true
+        },
+        {
+          "_class": "hudson.model.FreeStyleProject",
+          "name": "build-environment-terraform-and-recycle",
+          "url": "https://lab03.build.tax.service.gov.uk/job/build-and-deploy/job/build-environment-terraform-and-recycle/",
+          "buildable": true
+        },
+        {
+          "_class": "hudson.model.FreeStyleProject",
+          "name": "dashing-dashboards",
+          "url": "https://lab03.build.tax.service.gov.uk/job/build-and-deploy/job/dashing-dashboards/",
+          "buildable": true
+        },
+        {
+          "_class": "hudson.model.FreeStyleProject",
+          "name": "deploy-microservice-development",
+          "url": "https://lab03.build.tax.service.gov.uk/job/build-and-deploy/job/deploy-microservice-development/",
+          "buildable": true
+        },
+        {
+          "_class": "hudson.model.FreeStyleProject",
+          "name": "deploy-microservice-integration",
+          "url": "https://lab03.build.tax.service.gov.uk/job/build-and-deploy/job/deploy-microservice-integration/",
+          "buildable": true
+        },
+        {
+          "_class": "hudson.model.FreeStyleProject",
+          "name": "deploy-microservice-qa",
+          "url": "https://lab03.build.tax.service.gov.uk/job/build-and-deploy/job/deploy-microservice-qa/",
+          "buildable": true
+        },
+        {
+          "_class": "hudson.model.FreeStyleProject",
+          "name": "deploy-microservice-staging",
+          "url": "https://lab03.build.tax.service.gov.uk/job/build-and-deploy/job/deploy-microservice-staging/",
+          "buildable": true
+        },
+        {
+          "_class": "hudson.model.FreeStyleProject",
+          "name": "stop-orphaned-tasks",
+          "url": "https://lab03.build.tax.service.gov.uk/job/build-and-deploy/job/stop-orphaned-tasks/",
+          "buildable": true
+        },
+        {
+          "_class": "hudson.model.FreeStyleProject",
+          "name": "validate-app-config",
+          "url": "https://lab03.build.tax.service.gov.uk/job/build-and-deploy/job/validate-app-config/",
+          "buildable": true
+        }
+      ]
+    },
+    {
+      "_class": "hudson.model.FreeStyleProject",
+      "name": "clone-of-pensions-scheme-journey-tests-chrome-3.14.0",
+      "url": "https://lab03.build.tax.service.gov.uk/job/clone-of-pensions-scheme-journey-tests-chrome-3.14.0/",
+      "buildable": true
+    },
+    {
+      "_class": "hudson.model.FreeStyleProject",
+      "name": "clone-of-pensions-scheme-journey-tests-firefox-3.14.0",
+      "url": "https://lab03.build.tax.service.gov.uk/job/clone-of-pensions-scheme-journey-tests-firefox-3.14.0/",
+      "buildable": true
+    },
+    {
+      "_class": "com.cloudbees.hudson.plugins.folder.Folder",
+      "name": "Fake Team",
+      "url": "https://lab03.build.tax.service.gov.uk/job/Fake%20Team/",
+      "jobs": [
+        {
+          "_class": "com.cloudbees.hudson.plugins.folder.Folder",
+          "name": "Jobs",
+          "url": "https://lab03.build.tax.service.gov.uk/job/Fake%20Team/job/Jobs/",
+          "jobs": [
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "platops-example-api-tests",
+              "url": "https://lab03.build.tax.service.gov.uk/job/Fake%20Team/job/Jobs/job/platops-example-api-tests/",
+              "buildable": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_class": "hudson.model.FreeStyleProject",
+      "name": "github-hooks-pbd-737",
+      "url": "https://lab03.build.tax.service.gov.uk/job/github-hooks-pbd-737/",
+      "buildable": true
+    },
+    {
+      "_class": "hudson.model.FreeStyleProject",
+      "name": "konrad - artifactory connectivity",
+      "url": "https://lab03.build.tax.service.gov.uk/job/konrad%20-%20artifactory%20connectivity/",
+      "buildable": true
+    },
+    {
+      "_class": "hudson.model.FreeStyleProject",
+      "name": "pbd-924",
+      "url": "https://lab03.build.tax.service.gov.uk/job/pbd-924/",
+      "buildable": true
+    },
+    {
+      "_class": "hudson.model.FreeStyleProject",
+      "name": "PBD-927-Seed-Jenkins-Clone",
+      "url": "https://lab03.build.tax.service.gov.uk/job/PBD-927-Seed-Jenkins-Clone/",
+      "buildable": false
+    },
+    {
+      "_class": "hudson.model.FreeStyleProject",
+      "name": "platapps-connectivity",
+      "url": "https://lab03.build.tax.service.gov.uk/job/platapps-connectivity/",
+      "buildable": true
+    },
+    {
+      "_class": "com.cloudbees.hudson.plugins.folder.Folder",
+      "name": "PlatOps",
+      "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/",
+      "jobs": [
+        {
+          "_class": "com.cloudbees.hudson.plugins.folder.Folder",
+          "name": "Examples",
+          "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Examples/",
+          "jobs": [
+            {
+              "_class": "com.cloudbees.hudson.plugins.folder.Folder",
+              "name": "Folder With Spaces",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Examples/job/Folder%20With%20Spaces/"
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "platops-example-api-tests",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Examples/job/platops-example-api-tests/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "platops-example-api-zap-tests",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Examples/job/platops-example-api-zap-tests/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "platops-example-backend-microservice",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Examples/job/platops-example-backend-microservice/",
+              "buildable": true
+            },
+            {
+              "_class": "org.jenkinsci.plugins.workflow.job.WorkflowJob",
+              "name": "platops-example-backend-microservice-pipeline",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Examples/job/platops-example-backend-microservice-pipeline/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "platops-example-classic-service",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Examples/job/platops-example-classic-service/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "platops-example-dev-ui-journey-tests-firefox",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Examples/job/platops-example-dev-ui-journey-tests-firefox/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "platops-example-frontend-microservice",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Examples/job/platops-example-frontend-microservice/",
+              "buildable": true
+            },
+            {
+              "_class": "org.jenkinsci.plugins.workflow.job.WorkflowJob",
+              "name": "platops-example-frontend-microservice-pipeline",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Examples/job/platops-example-frontend-microservice-pipeline/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "platops-example-library",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Examples/job/platops-example-library/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "platops-example-play-cross-compiled-library",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Examples/job/platops-example-play-cross-compiled-library/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "platops-example-private-backend-microservice",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Examples/job/platops-example-private-backend-microservice/",
+              "buildable": true
+            },
+            {
+              "_class": "org.jenkinsci.plugins.workflow.job.WorkflowJob",
+              "name": "platops-example-private-backend-microservice-pipeline",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Examples/job/platops-example-private-backend-microservice-pipeline/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "platops-example-private-library",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Examples/job/platops-example-private-library/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "platops-example-private-sbt-plugin",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Examples/job/platops-example-private-sbt-plugin/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "platops-example-qa-ui-journey-tests-chrome",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Examples/job/platops-example-qa-ui-journey-tests-chrome/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "platops-example-sbt-plugin",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Examples/job/platops-example-sbt-plugin/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "platops-example-staging-ui-journey-tests-chrome",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Examples/job/platops-example-staging-ui-journey-tests-chrome/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "platops-example-test-job-with-upstream-trigger",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Examples/job/platops-example-test-job-with-upstream-trigger/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "platops-example-ui-journey-tests-chrome",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Examples/job/platops-example-ui-journey-tests-chrome/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "platops-example-ui-journey-tests-chrome-dario",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Examples/job/platops-example-ui-journey-tests-chrome-dario/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "platops-example-ui-journey-tests-firefox",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Examples/job/platops-example-ui-journey-tests-firefox/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "platops-example-ui-zap-tests-chrome",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Examples/job/platops-example-ui-zap-tests-chrome/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "splunk-platops-example-app",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Examples/job/splunk-platops-example-app/",
+              "buildable": true
+            }
+          ]
+        },
+        {
+          "_class": "com.cloudbees.hudson.plugins.folder.Folder",
+          "name": "Folder With Spaces",
+          "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Folder%20With%20Spaces/",
+          "jobs": [
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "konrad-test",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Folder%20With%20Spaces/job/konrad-test/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "splunk-platops-example-app-2",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Folder%20With%20Spaces/job/splunk-platops-example-app-2/",
+              "buildable": true
+            }
+          ]
+        },
+        {
+          "_class": "com.cloudbees.hudson.plugins.folder.Folder",
+          "name": "Services",
+          "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Services/",
+          "jobs": [
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "hello-world-simple-reactivemongo",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Services/job/hello-world-simple-reactivemongo/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "test-bdog-163-again",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Services/job/test-bdog-163-again/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "test-bdog-163-plugin",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Services/job/test-bdog-163-plugin/",
+              "buildable": true
+            }
+          ]
+        },
+        {
+          "_class": "com.cloudbees.hudson.plugins.folder.Folder",
+          "name": "Testing",
+          "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Testing/",
+          "jobs": [
+            {
+              "_class": "com.cloudbees.hudson.plugins.folder.Folder",
+              "name": "Nested Folder (konrad)",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Testing/job/Nested%20Folder%20(konrad)/"
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "clone-platops-example-api-zap-tests",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Testing/job/clone-platops-example-api-zap-tests/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "clone-platops-example-ui-zap-tests-chrome",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Testing/job/clone-platops-example-ui-zap-tests-chrome/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "clone-platops-test-build-metrics-ui-journey-tests-chrome",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Testing/job/clone-platops-test-build-metrics-ui-journey-tests-chrome/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "example-cucumber-tests",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Testing/job/example-cucumber-tests/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "platops-test-build-metrics-ui-journey-tests-chrome",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Testing/job/platops-test-build-metrics-ui-journey-tests-chrome/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "vat-flat-rate-calculator-ui-tests-selenium-timeout-investigation",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Testing/job/vat-flat-rate-calculator-ui-tests-selenium-timeout-investigation/",
+              "buildable": false
+            }
+          ]
+        },
+        {
+          "_class": "com.cloudbees.hudson.plugins.folder.Folder",
+          "name": "Tools",
+          "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Tools/",
+          "jobs": [
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "create-a-prototype",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Tools/job/create-a-prototype/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "create-a-repository",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Tools/job/create-a-repository/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "create-a-repository-dariog",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Tools/job/create-a-repository-dariog/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "create-a-webhook",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Tools/job/create-a-webhook/",
+              "buildable": true
+            },
+            {
+              "_class": "hudson.model.FreeStyleProject",
+              "name": "create-app-configs",
+              "url": "https://lab03.build.tax.service.gov.uk/job/PlatOps/job/Tools/job/create-app-configs/",
+              "buildable": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_class": "hudson.model.FreeStyleProject",
+      "name": "pralad-test",
+      "url": "https://lab03.build.tax.service.gov.uk/job/pralad-test/",
+      "buildable": true
+    },
+    {
+      "_class": "hudson.model.FreeStyleProject",
+      "name": "seed-jenkins",
+      "url": "https://lab03.build.tax.service.gov.uk/job/seed-jenkins/",
+      "buildable": true
+    },
+    {
+      "_class": "hudson.model.FreeStyleProject",
+      "name": "seed-jenkins-testing",
+      "url": "https://lab03.build.tax.service.gov.uk/job/seed-jenkins-testing/",
+      "buildable": false
+    },
+    {
+      "_class": "hudson.model.FreeStyleProject",
+      "name": "shutter-api-platform",
+      "url": "https://lab03.build.tax.service.gov.uk/job/shutter-api-platform/",
+      "buildable": false
+    },
+    {
+      "_class": "hudson.model.FreeStyleProject",
+      "name": "shutter-single-api",
+      "url": "https://lab03.build.tax.service.gov.uk/job/shutter-single-api/",
+      "buildable": false
+    },
+    {
+      "_class": "hudson.model.FreeStyleProject",
+      "name": "sleep",
+      "url": "https://lab03.build.tax.service.gov.uk/job/sleep/",
+      "buildable": true
+    },
+    {
+      "_class": "hudson.model.FreeStyleProject",
+      "name": "sm-test",
+      "url": "https://lab03.build.tax.service.gov.uk/job/sm-test/",
+      "buildable": true
+    },
+    {
+      "_class": "hudson.model.FreeStyleProject",
+      "name": "webstore connectivity",
+      "url": "https://lab03.build.tax.service.gov.uk/job/webstore%20connectivity/",
+      "buildable": true
+    }
+  ]
+}
