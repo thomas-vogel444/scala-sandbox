@@ -2,16 +2,16 @@ package akka_stream
 
 import java.nio.ByteOrder
 
-import akka.{ Done, NotUsed }
+import akka.{Done, NotUsed}
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
-import akka.stream.scaladsl.{ Flow, Keep, Sink, Source, Tcp }
+import akka.stream.scaladsl.{Flow, Keep, Sink, Source, Tcp}
 import akka.util.ByteString
-import akka.util.ByteString.{ ByteString1, ByteString1C, ByteStrings }
+import akka.util.ByteString.{ByteString1, ByteString1C, ByteStrings}
 import akka_stream.ByteBufferUtils.getBSONCString
 
 import scala.concurrent.Future
-import scala.util.Try
+import scala.util.{Random, Try}
 
 object Audit {
 
@@ -54,14 +54,14 @@ object Audit {
     t.getOrElse(false)
   }
 
-  def audit(byteString: ByteString): Unit = {
-    println("Dropping tables, now are you?")
+  def audit(byteString: ByteString, id: Int): Unit = {
+    println(s"Dropping tables, now are you mister $id?")
   }
 
-  val auditSink: Sink[ByteString, NotUsed] =
+  def auditSink(id: Int): Sink[ByteString, NotUsed] =
     Flow[ByteString]
-      .filter(byteString => shouldAudit(byteString))
-      .to(Sink.foreach(audit))
+      .filter(shouldAudit)
+      .to(Sink.foreach(byteString=> audit(byteString, id)))
 
 }
 
@@ -80,7 +80,9 @@ object MongoDBProxy extends App {
   connections
     .runForeach {
       _.handleWith {
-        Flow[ByteString].alsoTo(Audit.auditSink).via(mongoConnection)
+        val id = Random.nextInt()
+
+        Flow[ByteString].alsoTo(Audit.auditSink(id)).via(mongoConnection)
       }
     }
     .onComplete(_ => system.terminate())
