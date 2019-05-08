@@ -24,27 +24,34 @@ object ByteBufferExample extends App {
    * - hasArray
    */
 
-  val intBytes = ByteBuffer.allocate(12)
-  intBytes.putInt(32)
-  intBytes.putInt(4224)
-  intBytes.putInt(2414244)
+  val bb = ByteBuffer.allocate(22)
+  // fill in with "ismaster" as a BSON cstring
+  bb.put(105.toByte)
+  bb.put(115.toByte)
+  bb.put(109.toByte)
+  bb.put(97.toByte)
+  bb.put(115.toByte)
+  bb.put(116.toByte)
+  bb.put(101.toByte)
+  bb.put(114.toByte)
+  bb.put(0.toByte)
 
-  //  intBytes.flip()
+  bb.put(23.toByte)
+  bb.put(444.toByte)
+  bb.put(124.toByte)
+  bb.put(114.toByte)
+  bb.put(114.toByte)
+  bb.put(114.toByte)
 
-  val byteString = ByteString(intBytes)
+  val arrayString = bb.array() // no need to flip!
+  val s = new String(arrayString)
+  println(s)
 
-  println(byteString.length)
+  val i = arrayString.indexOf(0.toByte)
+  println(s"index: $i")
 
-  //  val bb = byteString.asByteBuffer
-  //  println(bb.getInt)
-  //  println(bb.getInt)
-  //  println(bb.getInt)
-  //  println(byteString.length)
-  //  println(bb.position())
-  //  println(bb.remaining())
-  //  bb.flip()
-  //
-  //  println(byteString.toString())
-  //  bb.putInt(88)
-  //  println(byteString.toString())
+  val x: Array[Byte] = arrayString.take(i)
+  println(x.length)
+  println(new String(x))
+
 }

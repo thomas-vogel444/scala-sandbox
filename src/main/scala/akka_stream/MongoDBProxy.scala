@@ -1,71 +1,85 @@
 package akka_stream
 
-import java.nio.ByteBuffer
+import java.nio.ByteOrder
 
-import akka.Done
+import akka.NotUsed
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
-import akka.stream.scaladsl.{Flow, Source, Tcp}
+import akka.stream.scaladsl.{ Flow, Keep, Sink, Source, Tcp }
 import akka.util.ByteString
-import akka_stream.MongoDBWireProtocol.{ClientRequest, parseMongoWireProtocol}
-import org.bson.conversions.Bson
+import akka_stream.ByteBufferUtils.getBSONCString
+import akka_stream.MongoWireParser.mongoBS
 
 import scala.concurrent.Future
+import scala.util.{ Failure, Success, Try }
 
-object MongoDBWireProtocol {
+object Audit {
 
-  case class ClientRequest(
-    messageLength: Int,
-    requestID: Int,
-    responseTo: Int,
-    opCode: Int)
+  def shouldAudit(byteString: ByteString): Boolean = {
+    // decoding Mongo Wire format
+    val t = Try {
+      println(s"Bytestring: ${byteString.map(_.toHexString).mkString}")
 
-  def toInt(array: Array[Byte]): Int = {
-    val bb = ByteBuffer.wrap(array)
-    bb.getInt
+      println("Roger1")
+      val bb = mongoBS.asByteBuffer
+      println("Roger2")
+
+      println(s"bb.hasArray: ${bb.hasArray}")
+
+      bb.order(ByteOrder.LITTLE_ENDIAN)
+
+      // MsgHeader
+      val messageLength = bb.getInt()
+      println(s"messageLength: $messageLength")
+
+      val requestID = bb.getInt()
+      println(s"requestID: $requestID")
+
+      val responseTo = bb.getInt()
+      println(s"responseTo: $responseTo")
+
+      val opCode = bb.getInt()
+      println(s"opCode: $opCode")
+
+      // OP_MSG specifics
+      val flagBits = bb.getInt()
+      println(s"flagBits: $flagBits")
+
+      // Sections1
+      val s1_kind = bb.get() // Assume it is equal to 0 == a single BSON object
+      println(s"s1_kind: $s1_kind")
+      val s1_size = bb.getInt()
+      println(s"s1_size: $s1_size")
+
+      // Bson document
+      val e1_type = bb.get()
+      println(s"e1_type: $e1_type")
+      val e1_name = getBSONCString(bb)
+      println(s"e1_name: $e1_name")
+
+      e1_name match {
+        case "drop" => true
+        case _ => false
+      }
+    }
+
+    t match {
+      case Success(value) => println("Roger that!")
+      case Failure(exception) => println(s"Booh: $exception")
+    }
+
+    t.getOrElse(false)
   }
 
-  def parseMongoWireProtocol(byteString: ByteString) = {
-    val bb: ByteBuffer = byteString.asByteBuffer
-
-    val messageLengthBytes = new Array[Byte](4)
-    bb.get(messageLengthBytes)
-
-    val requestIDBytes = new Array[Byte](4)
-    bb.get(requestIDBytes)
-
-    val responseToBytes = new Array[Byte](4)
-    bb.get(responseToBytes)
-
-    val opCodeBytes = new Array[Byte](4)
-    bb.get(opCodeBytes)
-
-    //    val remaining: Int = bb.remaining()
-    val messageLength: Int = toInt(messageLengthBytes.reverse)
-    val requestID = toInt(requestIDBytes.reverse)
-    val responseTo = toInt(responseToBytes.reverse)
-    val opCode = toInt(opCodeBytes.reverse)
-
-    println(s"messageLength: ${intToHexString(messageLength)}")
-    println(s"requestID: ${intToHexString(requestID)}")
-    println(s"responseTo: ${intToHexString(responseTo)}")
-    println(s"opCode: ${intToHexString(opCode)}")
-
-    ClientRequest(
-      messageLength = messageLength,
-      requestID = requestID,
-      responseTo = responseTo,
-      opCode = opCode)
+  def audit(byteString: ByteString): Unit = {
+    println(byteString)
   }
 
-  def intToHexString(int: Int): String = {
-    val bb = ByteBuffer.allocate(4)
-    bb.putInt(int)
-    bb.flip()
+  val auditSink: Sink[ByteString, NotUsed] =
+    Flow[ByteString]
+      .filter(byteString => shouldAudit(byteString))
+      .to(Sink.foreach(audit))
 
-    val array: Array[Byte] = bb.array()
-    array.map(byte => byte.toHexString).mkString(" ")
-  }
 }
 
 object MongoDBProxy extends App {
@@ -80,27 +94,14 @@ object MongoDBProxy extends App {
   val mongoConnection: Flow[ByteString, ByteString, Future[Tcp.OutgoingConnection]] =
     Tcp().outgoingConnection("127.0.0.1", 27017)
 
-  val flow: Flow[ByteString, ByteString, Future[Tcp.OutgoingConnection]] =
-    mongoConnection.map { byteString =>
-      val message: ClientRequest = parseMongoWireProtocol(byteString)
-
-      println(s"Message: $message")
-      byteString
+  connections
+    .runForeach {
+      _.handleWith {
+        val x: Flow[ByteString, ByteString, Future[Tcp.OutgoingConnection]] =
+          //          mongoConnection
+          mongoConnection.alsoTo(Audit.auditSink)
+        x
+      }
     }
-
-  Bson
-
-  val x: Future[Done] =
-    connections.runForeach { connection =>
-
-      val con: Tcp.IncomingConnection = connection
-
-      val z: Future[Tcp.OutgoingConnection] =
-        connection.handleWith(flow)
-
-      z
-    }
-
-  x.onComplete(_ => system.terminate())
-
+    .onComplete(_ => system.terminate())
 }

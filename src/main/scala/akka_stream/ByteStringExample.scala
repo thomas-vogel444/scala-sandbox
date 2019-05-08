@@ -20,21 +20,21 @@ object ByteStringExample extends App {
   println(s)
   byteString.foreach(byte => println(byte.toHexString))
 
-  //  println(s"byteString1 length: ${byteString.length}")
-  //
-  //  val bb2 = byteString.asByteBuffer
-  //
-  //  val array: Array[Byte] = new Array[Byte](byteString.length)
-  //  bb2.get(array)
-  //
-  //  println(Hex.encodeHexString(array))
-  //
-  //  bb2.flip()
-  //  (1 to byteString.length).foreach { x =>
-  //    val byte2: Byte = bb2.get()
-  //
-  //    println(byte2.toHexString)
-  //
-  //  }
+  println(s"byteString1 length: ${byteString.length}")
+
+  val bb2 = byteString.asByteBuffer
+
+  val array: Array[Byte] = new Array[Byte](byteString.length)
+  bb2.get(array)
+
+  println(Hex.encodeHexString(array))
+
+  bb2.flip()
+  (1 to byteString.length).foreach { x =>
+    val byte2: Byte = bb2.get()
+
+    println(byte2.toHexString)
+
+  }
 
 }
