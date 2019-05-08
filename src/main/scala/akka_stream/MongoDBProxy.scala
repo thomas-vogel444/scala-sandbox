@@ -2,12 +2,12 @@ package akka_stream
 
 import java.nio.ByteOrder
 
-import akka.NotUsed
+import akka.{ Done, NotUsed }
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
-import akka.stream.scaladsl.{Flow, Sink, Source, Tcp}
+import akka.stream.scaladsl.{ Flow, Keep, Sink, Source, Tcp }
 import akka.util.ByteString
-import akka.util.ByteString.{ByteString1, ByteString1C, ByteStrings}
+import akka.util.ByteString.{ ByteString1, ByteString1C, ByteStrings }
 import akka_stream.ByteBufferUtils.getBSONCString
 
 import scala.concurrent.Future
@@ -20,9 +20,6 @@ object Audit {
     // decoding Mongo Wire format
     val t = Try {
 
-//      println(s"Bytestring: ${byteString.map(_.toHexString).mkString}")
-
-      //      val bb: ByteBuffer = mongoBS.asByteBuffer
       val bb = byteString match {
         case byteStrings: ByteStrings => byteStrings.asByteBuffer
         case byteString1: ByteString1 => byteString1.asByteBuffer
@@ -58,7 +55,7 @@ object Audit {
   }
 
   def audit(byteString: ByteString): Unit = {
-    println(byteString)
+    println("Dropping tables, now are you?")
   }
 
   val auditSink: Sink[ByteString, NotUsed] =
@@ -77,16 +74,13 @@ object MongoDBProxy extends App {
   val connections: Source[Tcp.IncomingConnection, Future[Tcp.ServerBinding]] =
     Tcp().bind("127.0.0.1", 8888)
 
-  val mongoConnection: Flow[ByteString, ByteString, Future[Tcp.OutgoingConnection]] =
+  def mongoConnection: Flow[ByteString, ByteString, Future[Tcp.OutgoingConnection]] =
     Tcp().outgoingConnection("127.0.0.1", 27017)
 
   connections
     .runForeach {
       _.handleWith {
-        val x: Flow[ByteString, ByteString, Future[Tcp.OutgoingConnection]] =
-          //          mongoConnection
-          mongoConnection.alsoTo(Audit.auditSink)
-        x
+        Flow[ByteString].alsoTo(Audit.auditSink).via(mongoConnection)
       }
     }
     .onComplete(_ => system.terminate())
