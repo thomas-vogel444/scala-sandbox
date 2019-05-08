@@ -5,67 +5,53 @@ import java.nio.ByteOrder
 import akka.NotUsed
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
-import akka.stream.scaladsl.{ Flow, Keep, Sink, Source, Tcp }
+import akka.stream.scaladsl.{Flow, Sink, Source, Tcp}
 import akka.util.ByteString
+import akka.util.ByteString.{ByteString1, ByteString1C, ByteStrings}
 import akka_stream.ByteBufferUtils.getBSONCString
-import akka_stream.MongoWireParser.mongoBS
 
 import scala.concurrent.Future
-import scala.util.{ Failure, Success, Try }
+import scala.util.Try
 
 object Audit {
 
   def shouldAudit(byteString: ByteString): Boolean = {
+
     // decoding Mongo Wire format
     val t = Try {
-      println(s"Bytestring: ${byteString.map(_.toHexString).mkString}")
 
-      println("Roger1")
-      val bb = mongoBS.asByteBuffer
-      println("Roger2")
+//      println(s"Bytestring: ${byteString.map(_.toHexString).mkString}")
 
-      println(s"bb.hasArray: ${bb.hasArray}")
+      //      val bb: ByteBuffer = mongoBS.asByteBuffer
+      val bb = byteString match {
+        case byteStrings: ByteStrings => byteStrings.asByteBuffer
+        case byteString1: ByteString1 => byteString1.asByteBuffer
+        case byteString1C: ByteString1C => byteString1C.asByteBuffer
+      }
 
       bb.order(ByteOrder.LITTLE_ENDIAN)
 
       // MsgHeader
       val messageLength = bb.getInt()
-      println(s"messageLength: $messageLength")
-
       val requestID = bb.getInt()
-      println(s"requestID: $requestID")
-
       val responseTo = bb.getInt()
-      println(s"responseTo: $responseTo")
-
       val opCode = bb.getInt()
-      println(s"opCode: $opCode")
 
       // OP_MSG specifics
       val flagBits = bb.getInt()
-      println(s"flagBits: $flagBits")
 
       // Sections1
       val s1_kind = bb.get() // Assume it is equal to 0 == a single BSON object
-      println(s"s1_kind: $s1_kind")
       val s1_size = bb.getInt()
-      println(s"s1_size: $s1_size")
 
       // Bson document
       val e1_type = bb.get()
-      println(s"e1_type: $e1_type")
       val e1_name = getBSONCString(bb)
-      println(s"e1_name: $e1_name")
 
       e1_name match {
         case "drop" => true
         case _ => false
       }
-    }
-
-    t match {
-      case Success(value) => println("Roger that!")
-      case Failure(exception) => println(s"Booh: $exception")
     }
 
     t.getOrElse(false)
